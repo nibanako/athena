@@ -54,4 +54,19 @@ class User extends BaseModel
             'password' => password_hash($this->password, PASSWORD_DEFAULT)
         ]);
     }
+
+    public function findByUsername($username)
+    {
+        $result = $this->db->fetchAssoc('SELECT * FROM users WHERE username = ?', [$username]);
+        if (!empty($result)) {
+            return new User($result['id'], $this->db);
+        }
+
+        return false;
+    }
+
+    public function verifyPassword($password)
+    {
+        return password_verify($password, $this->password);
+    }
 }

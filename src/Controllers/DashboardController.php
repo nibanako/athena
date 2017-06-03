@@ -8,10 +8,10 @@ use Symfony\Component\HttpFoundation\Response;
 use Athena\Models\User;
 use Athena\Models\Server;
 
-class HomeController
+class DashboardController
 {
     public function index(Request $request, Application $app)
     {
-        return $app['twig']->render('Home/index.html.twig');
+        return $app['twig']->render('Dashboard/index.html.twig');
     }
 }

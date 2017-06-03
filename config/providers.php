@@ -16,3 +16,7 @@ $app->register(new Silex\Provider\DoctrineServiceProvider(), [
         'charset' => 'utf8mb4',
     ],
 ]);
+
+$app->register(new Silex\Provider\RoutingServiceProvider());
+
+$app->register(new Silex\Provider\SessionServiceProvider());

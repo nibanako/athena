@@ -7,13 +7,21 @@
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="/assets/bootstrap/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/assets/styles.css">
   </head>
   <body>
+      <nav class="navbar navbar-inverse bg-inverse">
+        <a class="navbar-brand" href="#">
+          🏛 Athena
+        </a>
+      </nav>
       {% block content %}
       {% endblock %}
     <!-- jQuery first, then Tether, then Bootstrap JS. -->
-    <script src="/assets/jquery/dist/jquery-3.1.1.slim.min.js"></script>
+    <script src="/assets/jquery/dist/jquery.slim.min.js"></script>
     <script src="/assets/tether/dist/js/tether.min.js"></script>
     <script src="/assets/bootstrap/dist/js/bootstrap.min.js"></script>
+    <!-- Font Awesome -->
+    <script src="//use.fontawesome.com/3a6d972db9.js"></script>
   </body>
 </html>
