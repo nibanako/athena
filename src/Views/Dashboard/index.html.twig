@@ -1,5 +1,112 @@
 {% extends 'layout.html.twig' %}
 
 {% block content %}
-    Hola mundo
+    <div class="container">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item active">
+                Dashboard
+            </li>
+        </ol>
+        
+        <h2><i class="fa fa-tachometer"></i> Dashboard</h2>
+        <h4 class="saludo">Bienvenido/a {{ user.getUsername }}</h4>
+        <div class="row">
+            <div class="col-8"></div>
+            <div class="col-3">
+                <input id="busqueda" type="text" class="form-control busqueda" placeholder="Búsqueda">
+            </div>
+            <div class="col-1"></div>
+        </div>
+        <div class="row">
+            <div class="col-1"></div>
+            <div class="col-10">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Estado</th>
+                            <th>Nombre</th>
+                            <th>IP</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                      {% for server in servers %}
+                        <tr>
+                            <td id="{{ server.getId }}" class="text-success align-middle server-status"><i class="fa fa-circle"></i> Online</td>
+                            <td class="align-middle">{{ server.getName }}</td>
+                            <td class="align-middle">{{ server.getIp }}</td>
+                            <td><a href="{{ app.url_generator.generate('showServer', { 'id': server.getId }) }}" class="btn btn-secondary btn-block"><i class="fa fa-angle-right"></i></a></td>
+                        </tr>
+                      {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-1"></div>
+        </div>
+        <div class="row">
+            <div class="col-1"></div>
+            <div class="col-8"></div>
+            <div class="col-2">
+                <button data-toggle="modal" data-target="#addServer" class="btn btn-primary"><i class="fa fa-plus"></i> Añadir servidor</button>
+            </div>
+            <div class="col-1"></div>
+        </div>
+    </div>
+    <div class="modal fade" id="addServer" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <form action="{{ app.url_generator.generate('saveServer') }}" method="post">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel"><i class="fa fa-server"></i> Añadir Servidor</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <h5>Host</h5>
+              <hr/>
+              <div class="form-group row">
+                  <label class="col-3 col-form-label">Nombre</label>
+                  <div class="col-9">
+                      <input type="text" name="name" class="form-control" placeholder="Optimus Prime">
+                  </div>
+              </div>
+              <div class="form-group row">
+                  <label class="col-3 col-form-label">IP</label>
+                  <div class="col-9">
+                      <input type="text" name="ip" class="form-control" placeholder="127.0.0.1">
+                  </div>
+              </div>
+              <div class="form-group row">
+                  <label class="col-3 col-form-label">Puerto SSH</label>
+                  <div class="col-9">
+                      <input type="number" name="port" class="form-control" min="1" placeholder="22">
+                  </div>
+              </div>
+              <h5>Login</h5>
+              <hr/>
+              <div class="form-group row">
+                  <label class="col-3 col-form-label">Usuario</label>
+                  <div class="col-9">
+                      <input type="text" name="username" class="form-control" placeholder="dennis">
+                  </div>
+              </div>
+              <div class="form-group row">
+                  <label class="col-3 col-form-label">Contraseña</label>
+                  <div class="col-9">
+                      <input type="password" name="password" class="form-control">
+                  </div>
+              </div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+            <button type="submit" class="btn btn-primary">Guardar</button>
+          </div>
+        </form>
+      </div>
+    </div>
+{% endblock %}
+
+{% block javascript %}
+    <script src="/assets/js/dashboard.js"></script>
 {% endblock %}

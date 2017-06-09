@@ -12,7 +12,11 @@ class LoginController
 {
     public function index(Request $request, Application $app)
     {
-        return $app['twig']->render('Login/index.html.twig');
+        if (null === $app['session']->get('user')) {
+            return $app['twig']->render('Login/index.html.twig');
+        } else {
+            return $app->redirect($app['url_generator']->generate('dashboard'));
+        }
     }
 
     public function signin(Request $request, Application $app)
@@ -21,7 +25,7 @@ class LoginController
         $user = $userModel->findByUsername($request->get('username'));
 
         if ($user && $user->verifyPassword($request->get('password'))) {
-            $app['session']->set('user', ['username' => $user->getUsername()]);
+            $app['session']->set('user', $user->getId());
 
             return $app->redirect($app['url_generator']->generate('dashboard'));
         }

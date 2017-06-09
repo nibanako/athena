@@ -12,6 +12,17 @@ class DashboardController
 {
     public function index(Request $request, Application $app)
     {
-        return $app['twig']->render('Dashboard/index.html.twig');
+        $user = new User(
+            $app['session']->get('user'),
+            $app['db']
+        );
+
+        $serverModel = new Server(null, $app['db']);
+        $servers = $serverModel->findAllByUser($user);
+
+        return $app['twig']->render('Dashboard/index.html.twig', [
+            'user' => $user,
+            'servers' => $servers
+        ]);
     }
 }

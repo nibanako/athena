@@ -27,7 +27,7 @@ class Server extends BaseModel
                 $this->username = $result['username'];
                 $this->password = $result['password'];
                 $this->port = $result['port'];
-                $this->userId = $result['userId'];
+                $this->userId = $result['user_id'];
             }
         }
     }
@@ -107,5 +107,17 @@ class Server extends BaseModel
             'port' => $this->port,
             'user_id' => $this->userId
         ]);
+    }
+
+    public function findAllByUser($user)
+    {
+        $servers = [];
+
+        $result = $this->db->fetchAll('SELECT * FROM servers WHERE user_id = ' . $user->getId());
+        foreach ($result as $row) {
+            $servers[] = new Server($row['id'], $this->db);
+        }
+
+        return $servers;
     }
 }
