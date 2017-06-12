@@ -35,7 +35,12 @@
                             <td id="{{ server.getId }}" class="text-success align-middle server-status"><i class="fa fa-circle"></i> Online</td>
                             <td class="align-middle">{{ server.getName }}</td>
                             <td class="align-middle">{{ server.getIp }}</td>
-                            <td><a href="{{ app.url_generator.generate('showServer', { 'id': server.getId }) }}" class="btn btn-secondary btn-block"><i class="fa fa-angle-right"></i></a></td>
+                            <td class="text-center">
+                                <div class="btn-group">
+                                    <a href="{{ app.url_generator.generate('showServer', { 'id': server.getId }) }}" class="btn btn-secondary"><i class="fa fa-angle-right"></i></a>
+                                    <button data-toggle="modal" data-target="#deleteServer" data-server-id="{{ server.getId }}" class="btn btn-danger"><i class="fa fa-trash"></i></button>
+                                </div>
+                            </td>
                         </tr>
                       {% endfor %}
                     </tbody>
@@ -51,10 +56,11 @@
             </div>
             <div class="col-1"></div>
         </div>
-    </div>
+    </div> <!-- TERMINA CONTAINER -->
+
     <div class="modal fade" id="addServer" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
       <div class="modal-dialog" role="document">
-        <form action="{{ app.url_generator.generate('saveServer') }}" method="post">
+        <form id="modalForm" action="{{ app.url_generator.generate('saveServer') }}" method="post">
           <div class="modal-content">
             <div class="modal-header">
               <h5 class="modal-title" id="exampleModalLabel"><i class="fa fa-server"></i> Añadir Servidor</h5>
@@ -80,7 +86,7 @@
               <div class="form-group row">
                   <label class="col-3 col-form-label">Puerto SSH</label>
                   <div class="col-9">
-                      <input type="number" name="port" class="form-control" min="1" placeholder="22">
+                      <input type="number" name="port" class="form-control" min="1" placeholder="22" digits>
                   </div>
               </div>
               <h5>Login</h5>
@@ -88,19 +94,43 @@
               <div class="form-group row">
                   <label class="col-3 col-form-label">Usuario</label>
                   <div class="col-9">
-                      <input type="text" name="username" class="form-control" placeholder="dennis">
+                      <input type="text" name="username" class="form-control" placeholder="dennis" required>
                   </div>
               </div>
               <div class="form-group row">
                   <label class="col-3 col-form-label">Contraseña</label>
                   <div class="col-9">
-                      <input type="password" name="password" class="form-control">
+                      <input type="password" name="password" class="form-control" required>
                   </div>
               </div>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-            <button type="submit" class="btn btn-primary">Guardar</button>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+              <button type="submit" class="btn btn-primary">Guardar</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal fade" id="deleteServer" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <form action="{{ app.url_generator.generate('deleteServer') }}" method="post">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel"><i class="fa fa-exclamation-triangle"></i> Borrar Servidor</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              ¿Estás seguro?
+              <input type="hidden" id="serverId" name="serverId">
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+              <button type="submit" class="btn btn-danger">Borrar</button>
+            </div>
           </div>
         </form>
       </div>
@@ -109,4 +139,5 @@
 
 {% block javascript %}
     <script src="/assets/js/dashboard.js"></script>
+    <script src="/assets/jquery-validation/dist/jquery.validate.min.js"></script>
 {% endblock %}

@@ -3,7 +3,8 @@
         "silex/silex": "~2.0",
         "twig/twig": "^2.0",
         "doctrine/dbal": "~2.2",
-        "texthtml/whoops-silex": "~1.0"
+        "texthtml/whoops-silex": "~1.0",
+        "digitalnature/php-ref": "dev-master"
     },
     "autoload": {
         "psr-4": {

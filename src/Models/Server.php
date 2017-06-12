@@ -109,6 +109,13 @@ class Server extends BaseModel
         ]);
     }
 
+    public function delete()
+    {
+        $this->db->delete('servers', [
+            'id' => $this->id
+        ]);
+    }
+
     public function findAllByUser($user)
     {
         $servers = [];

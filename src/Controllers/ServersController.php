@@ -35,6 +35,16 @@ class ServersController
         return $app->redirect($app['url_generator']->generate('dashboard'));
     }
 
+    public function delete(Request $request, Application $app)
+    {
+        $serverId = $request->get('serverId');
+
+        $server = new Server($serverId, $app['db']);
+        $server->delete();
+
+        return $app->redirect($app['url_generator']->generate('dashboard'));
+    }
+
     public function ping(Request $request, Application $app)
     {
         $server = new Server($request->get('id'), $app['db']);
