@@ -1,0 +1,23 @@
+{
+  "name": "athena",
+  "homepage": "http://github.io/nibanako/Athena/",
+  "authors": [
+    "Gemma Gallardo <threesecsharing@icloud.com>"
+  ],
+  "description": "Sistema de monitorización de servidores",
+  "main": "",
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "chart.js": "^2.6.0",
+    "bootstrap": "^4.0.0-alpha.6",
+    "jquery.validation": "^1.16.0"
+  }
+}

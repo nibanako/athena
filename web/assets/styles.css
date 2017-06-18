@@ -1,0 +1,24 @@
+.login-form {
+    margin-top: 50px;
+}
+
+.input-group .fa, .btn-group .fa {
+    width: 16px;
+    height: 16px;
+}
+
+.container {
+    margin-top: 75px;
+}
+
+.saludo {
+    margin: 25px 0;
+}
+
+.busqueda {
+    margin: 0 0 15px 0;
+}
+
+.specs {
+  min-width: 400px;
+}
