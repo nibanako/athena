@@ -4,17 +4,28 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
+    <title>Athena > {% block title %}{% endblock %}</title>
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="/assets/bootstrap/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="/assets/styles.css">
   </head>
   <body>
-      <nav class="navbar navbar-inverse bg-inverse">
-        <a class="navbar-brand" href="/">🏛 Athena</a>
-      </nav>
-      {% block content %}
-      {% endblock %}
+    <nav class="navbar navbar-toggleable-md navbar-inverse fixed-top bg-inverse">
+      <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <a class="navbar-brand" href="/">🏛 Athena</a>
+      <div class="collapse navbar-collapse">
+        <ul class="navbar-nav mr-auto"></ul>
+        {% if app.session.get('user') is not empty %}
+        <a class="btn btn-danger my-2 my-sm-0 text-white" href="{{ app.url_generator.generate('signout') }}">
+          <i class="fa fa-sign-in" aria-hidden="true"></i> Cerrar sesión
+        </a>
+        {% endif %}
+      </div>
+    </nav>
+    {% block content %}
+    {% endblock %}
     <!-- jQuery first, then Tether, then Bootstrap JS. -->
     <script src="/assets/jquery/dist/jquery.min.js"></script>
     <script src="/assets/tether/dist/js/tether.min.js"></script>

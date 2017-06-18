@@ -1,0 +1,72 @@
+{% extends 'layout.html.twig' %}
+
+{% block title %}Detalles de {{ server.getName }}{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/">Dashboard</a></li>
+            <li class="breadcrumb-item active">Detalles de {{ server.getName }}</li>
+        </ol>
+
+        <div class="float-right text-muted">
+          <em>Tiempo encendido: {{ uptime }}</em>
+        </div>
+        <input type="hidden" id="serverId" value="{{ server.getId }}">
+        <h2><i class="fa fa-server"></i> {{ server.getName }}</h2>
+        <h4>Especificaciones</h4>
+        <ul class="list-unstyled">
+          <li><strong>Procesador:</strong> {{ cpu }}</li>
+          <li><strong>Memoria RAM:</strong> {{ ram }}</li>
+          <li><strong>Disco Duro:</strong> {{ hdd }}</li>
+          <li><strong>Sistema operativo:</strong> {{ so }}</li>
+        </ul>
+
+        <h4>Estadísticas</h4>
+        <div class="row">
+          <div class="col-5">
+            <canvas id="avg"></canvas>
+          </div>
+          <div class="col-5">
+            <canvas id="ram"></canvas>
+          </div>
+          <div class="col-2">
+            <canvas id="hdd"></canvas>
+          </div>
+        </div>
+
+        <h4>Procesos</h4>
+        <div class="row">
+            <div class="col-12">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>PID</th>
+                            <th>Usuario</th>
+                            <th>CPU</th>
+                            <th>Memoria</th>
+                            <th>Tiempo</th>
+                            <th>Comando</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                      {% for proceso in procesos %}
+                        <tr>
+                          <td class="text-right">{{ proceso.pid }}</td>
+                          <td class="text-center">{{ proceso.user }}</td>
+                          <td class="text-center">{{ proceso.cpu }}%</td>
+                          <td class="text-center">{{ proceso.mem }}%</td>
+                          <td class="text-center">{{ proceso.time }}</td>
+                          <td><code>{{ proceso.command }}<code></td>
+                        </tr>
+                      {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block javascript %}
+    <script src="/assets/chart.js/dist/Chart.min.js"></script>
+    <script src="/assets/js/servers.js"></script>
+{% endblock %}

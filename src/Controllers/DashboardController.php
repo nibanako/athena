@@ -12,6 +12,11 @@ class DashboardController
 {
     public function index(Request $request, Application $app)
     {
+        if ($app['session']->get('user') == null) {
+            $app['session']->getFlashBag()->add('error', 'Debes iniciar sesión antes de acceder');
+            return $app->redirect($app['url_generator']->generate('login'));
+        }
+
         $user = new User(
             $app['session']->get('user'),
             $app['db']

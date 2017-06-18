@@ -34,4 +34,10 @@ class LoginController
 
         return $app->redirect($app['url_generator']->generate('login'));
     }
+
+    public function signout(Request $request, Application $app)
+    {
+        $app['session']->clear();
+        return $app->redirect($app['url_generator']->generate('login'));
+    }
 }
