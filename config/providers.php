@@ -1,6 +1,6 @@
 <?php
 
-$app->register(new WhoopsSilex\WhoopsServiceProvider());
+//$app->register(new WhoopsSilex\WhoopsServiceProvider());
 
 $app->register(new Silex\Provider\TwigServiceProvider(), [
     'twig.path' => __DIR__ . '/../src/Views',
