@@ -138,6 +138,20 @@ class ServersController
         }
     }
 
+    public function getProcesses(Request $request, Application $app)
+    {
+        $server = new Server($request->get('id'), $app['db']);
+        $conn = ssh2_connect($server->getIp(), $server->getPort() == 0 ? 22 : $server->getPort());
+
+        if (ssh2_auth_password($conn, $server->getUsername(), $server->getPassword())) {
+            $processes = $this->getProcess($conn);
+
+            return $app->json($processes);
+        } else {
+            return $app->json(['error' => 'No se ha podido establecer la conexión con el servidor.']);
+        }
+    }
+
     private function remoteCall($conn, $command)
     {
         $stream = ssh2_exec($conn, $command);

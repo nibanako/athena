@@ -30,3 +30,4 @@ $app->get('/servers/ping/{id}', 'Athena\Controllers\ServersController::ping')->b
 $app->get('/servers/hddUsage/{id}', 'Athena\Controllers\ServersController::getHddUsage')->bind('getHddUsage');
 $app->get('/servers/avg/{id}', 'Athena\Controllers\ServersController::getAvg')->bind('getAvg');
 $app->get('/servers/ramUsage/{id}', 'Athena\Controllers\ServersController::getRamUsage')->bind('getRamUsage');
+$app->get('/servers/processes/{id}', 'Athena\Controllers\ServersController::getProcesses')->bind('getProcesses');

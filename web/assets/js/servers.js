@@ -109,6 +109,23 @@ $(function() {
                     hddChart.update();
                 }
             });
+
+            $.ajax({
+                'url': '/servers/processes/' + $('#serverId').val(),
+                success: function(data) {
+                    $('table tbody').html('');
+                    $(data).each(function(idx, elem) {
+                        $('table tbody').append('<tr>' +
+                            '<td class="text-right">' + elem.pid + '</td>' +
+                            '<td class="text-center">' + elem.user + '</td>' +
+                            '<td class="text-center">' + elem.cpu + '%</td>' +
+                            '<td class="text-center">' + elem.mem + '%</td>' +
+                            '<td class="text-center">' + elem.time + '</td>' +
+                            '<td><code>' + elem.command + '</code></td>' +
+                        '</tr>')
+                    });
+                }
+            });
         },
         5000
     );
